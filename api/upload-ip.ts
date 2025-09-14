@@ -10,7 +10,7 @@ async function handler(request: VercelRequest, response: VercelResponse) {
         response.status(401).json({error: 'Unauthorized'});
         return;
     }
-    const ip = request.body.json().ip;
+    const ip = request.body.ip;
     const name = request.query.name;
     if(typeof name !== 'string' || name.length === 0) {
         response.status(400).json({error: 'Name is required'});
