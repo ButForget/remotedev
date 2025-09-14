@@ -5,6 +5,11 @@ import {computers} from "../db/schema";
 import {eq} from "drizzle-orm";
 const db = drizzle(neon(process.env.DATABASE_URL!));
 async function handler(request: VercelRequest, response: VercelResponse) {
+    const auth = request.headers.authorization;
+    if(auth !== `Bearer ${process.env.API_KEY}`) {
+        response.status(401).json({error: 'Unauthorized'});
+        return;
+    }
     const ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
     const name = request.query.name;
     if(typeof name !== 'string' || name.length === 0) {
