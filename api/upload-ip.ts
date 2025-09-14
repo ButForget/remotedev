@@ -24,7 +24,7 @@ async function handler(request: VercelRequest, response: VercelResponse) {
     } else {
         await db.insert(computers).values({name, ip: ip as string});
     }
-    response.status(200).end();
+    response.status(200).json(request.headers);
 }
 
 module.exports = handler;
